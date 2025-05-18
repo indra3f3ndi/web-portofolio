@@ -1,0 +1,479 @@
+<!DOCTYPE html> 
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iOS Style Web</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<!-- POPUP MODAL -->
+<div id="popup-modal" class="popup hidden">
+  <div class="popup-content">
+    <p id="popup-message"></p>
+    <button onclick="closePopup()">Tutup</button>
+  </div>
+</div>
+
+<body>
+
+<script>
+  const password = "indra552790"; // Ganti dengan password yang kamu mau
+  let isAdmin = false;
+
+  function loginAdmin() {
+    const input = document.getElementById("admin-password").value;
+    if (input === password) {
+      isAdmin = true;
+      document.getElementById("add-activity-btn").style.display = "block";
+      document.getElementById("admin-login").style.display = "none";
+      renderActivities();
+    } else {
+      alert("Password salah!");
+    }
+  }
+
+  function showAddForm() {
+    document.getElementById("add-activity-form").style.display = "block";
+  }
+
+  function addActivity() {
+    const title = document.getElementById("new-title").value;
+    const desc = document.getElementById("new-description").value;
+    const image = document.getElementById("new-image").value;
+
+    const data = JSON.parse(localStorage.getItem("activities") || "[]");
+    data.push({ title, desc, image });
+    localStorage.setItem("activities", JSON.stringify(data));
+    renderActivities();
+
+    document.getElementById("add-activity-form").reset();
+    document.getElementById("add-activity-form").style.display = "none";
+  }
+
+  function deleteActivity(index) {
+    const data = JSON.parse(localStorage.getItem("activities") || "[]");
+    data.splice(index, 1);
+    localStorage.setItem("activities", JSON.stringify(data));
+    renderActivities();
+  }
+
+  function renderActivities() {
+    const data = JSON.parse(localStorage.getItem("activities") || "[]");
+    const container = document.getElementById("dynamic-activities");
+    container.innerHTML = "";
+    data.forEach((item, i) => {
+      container.innerHTML += `
+        <div class="activity-card">
+          <img src="${item.image}" class="activity-photo" />
+          <div class="activity-info">
+            <h3 class="activity-title">${item.title}</h3>
+            <p class="activity-description">${item.desc}</p>
+            ${isAdmin ? `<button onclick="deleteActivity(${i})">Hapus</button>` : ""}
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  window.onload = renderActivities;
+</script>
+
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <button class="menu-toggle" id="menu-toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="nav-content" id="nav-content">
+      <a href="home.html">🏠︎ HOME</a>
+      <a href="about.html">📄 ABOUT</a>
+      <div class="dropdown project-dropdown">
+        <button class="dropbtn">🔗 PROJECT</button>
+        <div class="dropdown-content">
+          <a href="desain.html">✒️ Desain</a>
+          <a href="program.html">⚛ Program</a>
+        </div>
+      </div>
+      <a href="media.html">☎ MEDIA SOSIAL</a>
+    </div>
+  </nav>
+
+
+ <!-- SVG WAVE ANIMATION -->
+  <div class="wave">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="gradientWave">
+          <stop offset="0%" stop-color="#ec63c4" />
+          <stop offset="100%" stop-color="#8f61ff" />
+        </linearGradient>
+      </defs>
+      <path id="wavePath"
+        d="M0,40 C300,120 900,-40 1200,40 L1200,120 L0,120 Z"
+        fill="url(#gradientWave)" opacity="0.8">
+        <animate attributeName="d" dur="6s" repeatCount="indefinite"
+          values="M0,40 C300,120 900,-40 1200,40 L1200,120 L0,120 Z; M0,60 C300,80 900,0 1200,60 L1200,120 L0,120 Z; M0,40 C300,120 900,-40 1200,40 L1200,120 L0,120 Z" />
+      </path>
+    </svg>
+  </div>
+
+<br>
+<br>
+
+<br>
+
+
+  <!-- ACTIVITY SECTION (New Content) -->
+<h2 class="activities-title">Kegiatan Saya</h2>
+  <!-- ADMIN LOGIN -->
+<div id="admin-login" style="text-align:center; margin: 20px;">
+  <input type="password" id="admin-password" placeholder="Masukkan Password Admin">
+  <button onclick="loginAdmin()">Login Admin</button>
+</div>
+
+<!-- TOMBOL TAMBAH -->
+<div id="add-activity-btn" style="text-align:center; display:none;">
+  <button onclick="showAddForm()">+ Tambah Kegiatan</button>
+</div>
+
+<!-- FORM TAMBAH KEGIATAN -->
+<div id="add-activity-form" style="display:none; text-align:center; margin:20px;">
+  <input type="text" id="new-title" placeholder="Judul Kegiatan"><br>
+  <textarea id="new-description" placeholder="Deskripsi Kegiatan"></textarea><br>
+
+  <label class="upload-btn">
+    Pilih Gambar
+    <input type="file" id="new-image" accept="image/*" hidden>
+  </label>
+  <span id="file-name" style="color: white;"></span><br>
+
+  <button class="submit-btn" onclick="addActivity()">Simpan</button>
+</div>
+
+
+<!-- Container Kegiatan Dinamis -->
+<div class="activity-cards" id="dynamic-activities"></div>
+
+
+    </div>
+  <section class="activities">
+    <br>
+    <div class="activity-cards">
+      <div class="activity-card">
+        <img src="photo1.jpg" alt="Kegiatan 1" class="activity-photo">
+        <div class="activity-info">
+          <h3 class="activity-title">Desain Walpaper</h3>
+          <p class="activity-description">Desain wallpaper dibuat menggunakan perangkat lunak CorelDRAW. Dengan memanfaatkan fitur-fitur yang tersedia.
+</p>
+        </div>
+      </div>
+      <div class="activity-card">
+        <img src="workshop.jpg" alt="Kegiatan 2" class="activity-photo">
+        <div class="activity-info">
+          <h3 class="activity-title">kegiatan workshop desain web E-commerce</h3>
+          <p class="activity-description">Kegiatan dilaksanakan di perpustakaan bung Hatta Bukittinggi, Kegiatan workshop desain web E-commerce merupakan sebuah pelatihan yang bertujuan untuk memberikan pemahaman dan keterampilan kepada peserta dalam merancang dan mengembangkan situs web toko online.
+</p>
+        </div>
+      </div>
+      <div class="activity-card">
+        <img src="makrab.jpg" alt="Kegiatan 3" class="activity-photo">
+        <div class="activity-info">
+          <h3 class="activity-title">malam keakraban</h3>
+          <p class="activity-description">malam keakraban di organisasi daerah padang lawas sumatera utara, yang pertempat di bukittinggi ngarai sianok.</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="activity-cards">
+      <div class="activity-card">
+        <img src="robotik.jpg" alt="Kegiatan 1" class="activity-photo">
+        <div class="activity-info">
+          <h3 class="activity-title">Kegiatan workshop robotik arduino</h3>
+          <p class="activity-description">kegiatan yang s=diselangarakan di medan sumatera utara, yaitu kegiatan robotic yang menggunakan bahasa java.</p>
+        </div>
+      </div>
+      <div class="activity-card">
+        <img src="hut.jpg" alt="Kegiatan 2" class="activity-photo">
+        <div class="activity-info">
+          <h3 class="activity-title">HUT PTIK</h3>
+          <p class="activity-description">Kepanitiaan HUT PTIK yang di laksanakan di kampus uin Sjech M Djamil Djambek Bukittinggi</p>
+        </div>
+      </div>
+      <div class="activity-card">
+        <img src="gis.jpg" alt="Kegiatan 3" class="activity-photo">
+        <div class="activity-info">
+          <h3 class="activity-title">pembelajaran geografi informasi sistem</h3>
+          <p class="activity-description">gis merupakan suatu project yang mengubah website ke dalam gambaran peta</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    
+
+  </section>
+  <script>
+
+  // Pop-up handler
+  function closePopup() {
+    document.getElementById("popup-modal").classList.add("hidden");
+  }
+
+  function showAddForm() {
+    document.getElementById("add-activity-form").style.display = "block";
+  }
+
+  function loginAdmin() {
+    const input = document.getElementById("admin-password").value;
+    const popup = document.getElementById("popup-modal");
+    const message = document.getElementById("popup-message");
+
+    if (input === password) {
+      isAdmin = true;
+      document.getElementById("add-activity-btn").style.display = "block";
+      document.getElementById("admin-login").style.display = "none";
+      renderActivities();
+
+      message.textContent = "Login berhasil! Selamat datang, Admin.";
+    } else {
+      message.textContent = "Password salah. Silakan coba lagi.";
+    }
+    popup.classList.remove("hidden");
+  }
+
+  function resetForm() {
+    document.getElementById("new-title").value = "";
+    document.getElementById("new-description").value = "";
+    document.getElementById("new-image").value = "";
+    document.getElementById("file-name").textContent = "";
+    document.getElementById("add-activity-form").style.display = "none";
+  }
+
+  function addActivity() {
+    const title = document.getElementById("new-title").value;
+    const desc = document.getElementById("new-description").value;
+    const fileInput = document.getElementById("new-image");
+    const file = fileInput.files[0];
+
+    const popup = document.getElementById("popup-modal");
+    const message = document.getElementById("popup-message");
+
+    if (!title || !desc || !file) {
+      message.textContent = "Semua kolom wajib diisi.";
+      popup.classList.remove("hidden");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const data = JSON.parse(localStorage.getItem("activities") || "[]");
+      data.push({
+        title: title,
+        desc: desc,
+        image: e.target.result
+      });
+      localStorage.setItem("activities", JSON.stringify(data));
+      renderActivities();
+      resetForm();
+
+      message.textContent = "Kegiatan berhasil ditambahkan.";
+      popup.classList.remove("hidden");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function deleteActivity(index) {
+    const data = JSON.parse(localStorage.getItem("activities") || "[]");
+    data.splice(index, 1);
+    localStorage.setItem("activities", JSON.stringify(data));
+    renderActivities();
+  }
+
+  function renderActivities() {
+    const data = JSON.parse(localStorage.getItem("activities") || "[]");
+    const container = document.getElementById("dynamic-activities");
+    container.innerHTML = "";
+    data.forEach((item, i) => {
+      container.innerHTML += `
+        <div class="activity-card">
+          <img src="${item.image}" class="activity-photo" />
+          <div class="activity-info">
+            <h3 class="activity-title">${item.title}</h3>
+            <p class="activity-description">${item.desc}</p>
+            ${isAdmin ? `<button onclick="deleteActivity(${i})">Hapus</button>` : ""}
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  window.onload = () => {
+    renderActivities();
+    document.getElementById("new-image").addEventListener("change", function () {
+      const fileName = this.files[0] ? this.files[0].name : "";
+      document.getElementById("file-name").textContent = fileName;
+    });
+  };
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const navContent = document.getElementById('nav-content');
+  menuToggle.addEventListener('click', () => {
+    navContent.classList.toggle('active');
+  });
+
+
+
+  </script>
+
+
+
+  
+</body>
+</html>
+<style>
+  /* Styling untuk section kegiatan */
+.activities {
+  padding: 20px;
+  background-color: #241e51;
+}
+
+.activities-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.activity-cards {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.activity-card {
+  background: rgb(22, 18, 47);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  transition: transform 0.3s ease;
+}
+
+.activity-card:hover {
+  transform: translateY(-10px);
+}
+
+.activity-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.activity-info {
+  padding: 15px;
+}
+
+.activity-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.activity-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+
+button {
+  padding: 8px 12px;
+  background-color: #ec63c4;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+input, textarea {
+  margin: 5px;
+  padding: 5px;
+  width: 60%;
+}
+.upload-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #ec63c4, #8f61ff);
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background: linear-gradient(to right, #5e2ced, #ec63c4);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
+input[type="text"], textarea {
+  width: 60%;
+  padding: 10px;
+  margin: 8px auto;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Popup Modal */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 0.5px solid;
+  border-image: linear-gradient(45deg, #ec63c4, #8f61ff) 1;
+  border-radius: 5px;
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  animation: pop 0.3s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+</style>

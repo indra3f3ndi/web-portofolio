@@ -1,0 +1,254 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom right, #1f1c3a, #2c245f);
+  color: #fce4ff;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(12px); /* Gaya blur lebih halus mirip iOS */
+  background-color: rgba(30, 30, 60, 0.7); /* Lebih transparan dengan warna gelap */
+  padding: 15px 0;
+  z-index: 999;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-content {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Link & Dropdown Button */
+.navbar a,
+.dropbtn {
+  color: #ffffffcc;
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.navbar a:hover,
+.dropbtn:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Gaya hover lebih terang */
+  color: #fff;
+}
+
+/* Dropdown Project */
+.project-dropdown {
+  position: relative;
+  list-style: none;
+}
+
+.project-dropdown * {
+  list-style: none;
+}
+
+.project-dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.05); /* Transparansi lebih tinggi */
+  backdrop-filter: blur(15px); /* Gaya blur lebih halus mirip iOS */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Perbanyak transparansi */
+  border-radius: 14px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Efek bayangan lebih kuat */
+  display: none;
+  flex-direction: column;
+  min-width: 180px;
+  padding: 10px 0;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a {
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  margin: 6px 10px;
+  text-decoration: none;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.08); /* Transparansi dengan efek blur */
+  backdrop-filter: blur(15px); /* Gaya blur lebih halus mirip iOS */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Border lebih terang */
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background: rgba(255, 255, 255, 0.2); /* Efek hover lebih terang */
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 50px 30px;
+  flex-wrap: wrap;
+  background: linear-gradient(to bottom, #211c4a, #301e5e);
+}
+
+.photo-container .photo {
+  width: 270px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.3);
+}
+
+.text-container {
+  max-width: 600px;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  transform: translateX(-30px);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.line.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.connector {
+  width: 40px;
+  height: 2px;
+  background: #ff8edb;
+  margin-right: 20px;
+  transform: rotate(-25deg);
+}
+
+/* Wave Animation */
+.wave {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.wave svg {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+/* Responsif tinggi wave */
+@media (max-width: 768px) {
+  .wave svg {
+    height: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wave svg {
+    height: 60px;
+  }
+  
+  .wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+}
+
+/* Posisi konten activity agar tidak tertutupi wave */
+.activity {
+  margin-top: 120px; /* Sesuaikan tinggi .wave */
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  margin: 10px 20px;
+}
+
+.menu-toggle .bar {
+  height: 4px;
+  width: 100%;
+  background-color: white;
+  border-radius: 4px;
+  transition: 0.3s ease;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-content {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(30, 30, 60, 0.7); /* Background lebih transparan */
+    backdrop-filter: blur(12px); /* Efek blur lebih halus */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .nav-content.active {
+    display: flex;
+  }
+
+  .nav-content a,
+  .nav-content .dropdown {
+    margin: 10px 0;
+  }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.navbar {
+  backdrop-filter: blur(12px);
+  background-color: rgba(30, 30, 60, 0.7);
+  background: rgba(30, 30, 60, 0.7); /* fallback untuk browser yang tidak mendukung backdrop-filter */
+}
+.navbar {
+  -webkit-backdrop-filter: blur(12px); /* Untuk Safari dan beberapa versi Chrome */
+  backdrop-filter: blur(12px);
+}
+
+

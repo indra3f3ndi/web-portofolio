@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iOS Style Web</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+
+  .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 115px 20px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .text-container {
+      max-width: 90%;
+    }
+
+    .photo-container img {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  .photo-container {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .photo-container img {
+    width: 350px;
+    height: 350px;
+    border-radius: 100%;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(247, 66, 229, 0.3);
+    transition: transform 0.3s ease;
+  }
+
+  .photo-container img:hover {
+    transform: scale(1.05);
+  }
+
+  .text-container {
+    max-width: 600px;
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(270deg, #ec63c4, #8f61ff, #ec63c4);
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  .description-box {
+  background: rgba(255, 255, 255, 0.1); /* transparan blur */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: white;
+  border-radius: 12px;
+  padding: 15px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+}
+
+.description-box p {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+/* Border gradasi tipis di sekitar box */
+.description-box {
+  padding: 15px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid;
+  border-image: linear-gradient(45deg, #ec63c4, #8f61ff) 1;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(140, 0, 255, 0.2);
+}
+
+/* Animasi teks gradasi bertukar */
+.animated-gradient-text {
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(270deg, #ec63c4, #8f61ff, #ec63c4);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <button class="menu-toggle" id="menu-toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="nav-content" id="nav-content">
+      <a href="home.html">🏠︎ HOME</a>
+      <a href="about.html">📄 ABOUT</a>
+      <div class="dropdown project-dropdown">
+        <button class="dropbtn">🔗 PROJECT</button>
+        <div class="dropdown-content">
+          <a href="#">✒️ Desain</a>
+          <a href="#">⚛ Program</a>
+        </div>
+      </div>
+      <a href="media.html">☎ MEDIA SOSIAL</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="photo-container">
+      <img src="profile.png" alt="Foto Saya">
+    </div>
+    <div class="text-container">
+  <h2>Hai, perkenalkan saya</h2>
+    <h3>Indra Efendi Saputra Hasibuan</h3>
+  <div class="description-box" id="description-box">
+    <p id="description" class="animated-gradient-text">Saya seorang mahasiswa asal sumatera utara yang menyukai pemrograman web dan desain grafis, saya akan berbagi pengalaman di platform ini mengenai hal yang saya kerjakan.</p>
+  </div>
+</div>
+  </section>
+
+
+
+  <!-- WAVE ANIMATION -->
+  <div class="wave">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="gradientWave">
+          <stop offset="0%" stop-color="#ec63c4" />
+          <stop offset="100%" stop-color="#8f61ff" />
+        </linearGradient>
+      </defs>
+      <path id="wavePath"
+        d="M0,40 C300,120 900,-40 1200,40 L1200,120 L0,120 Z"
+        fill="url(#gradientWave)" opacity="0.8">
+        <animate attributeName="d" dur="6s" repeatCount="indefinite"
+          values="
+            M0,40 C300,120 900,-40 1200,40 L1200,120 L0,120 Z;
+            M0,60 C300,80 900,0 1200,60 L1200,120 L0,120 Z;
+            M0,40 C300,120 900,-40 1200,40 L1200,120 L0,120 Z
+          " />
+      </path>
+    </svg>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navContent = document.getElementById('nav-content');
+    const description = document.getElementById('description');
+    const editArea = document.getElementById('editDescription');
+    const adminActions = document.getElementById('admin-actions');
+    const editBtn = document.getElementById('editBtn');
+
+    menuToggle.addEventListener('click', () => {
+      navContent.classList.toggle('active');
+    });
+
+    
+
+
+   
+  </script>
+
+</body>
+</html>
